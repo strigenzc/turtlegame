@@ -36,6 +36,14 @@ player.penup()
 player.pensize(5)
 player.speed(0) 
 
+# Create opponent turtle
+comp = turtle.Turtle()
+comp.color('red')
+comp.shape('turtle')
+comp.penup()
+comp.setposition(random.randint(-290, 290), random.randint(-290, 290))
+
+
 # Create variable score
 score = 0
 
@@ -89,6 +97,16 @@ turtle.onkey(decrease_speed, "Down")
 
 while True:
     player.forward(speed)
+    comp.forward(12)
+        # Boundary Comp Checking x coordinate
+    if comp.xcor() > 290 or comp.xcor() < -290:
+        comp.right(180)
+        os.system('afplay bounce.mp3&')
+
+    # Boundary Comp Checking y coordinate
+    if comp.ycor() > 290 or comp.ycor() < -290:
+        comp.right(180)
+        os.system('afplay bounce.mp3&')
 
     # Boundary Player Checking x coordinate
     if player.xcor() > 290 or player.xcor() < -290:
