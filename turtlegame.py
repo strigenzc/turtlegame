@@ -85,7 +85,7 @@ while True:
 
     # Boundary Player Checking y coordinate
     if player.ycor() > 290 or player.ycor() < -290:
-        player.right(18
+        player.right(18)
 
     #Move food around
     for food in foods:
