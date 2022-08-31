@@ -3,6 +3,7 @@ import turtle
 import math
 import random
 import os
+import time
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 bounce_path = os.path.join(dir_path, 'bounce.mp3')
@@ -43,9 +44,14 @@ comp.shape('turtle')
 comp.penup()
 comp.setposition(random.randint(-290, 290), random.randint(-290, 290))
 
+# Create competition score
+mypen2 = turtle.Turtle()
+mypen2.color('red')
+mypen2.hideturtle()
 
 # Create variable score
 score = 0
+comp_score = 0
 
 # Create food
 maxFoods = 6
@@ -62,6 +68,9 @@ for count in range(maxFoods):
 
 #Set speed variable
 speed = 1
+
+# Set game time limit for 1 minute (60 seconds)
+timeout = time.time() + 10*6
 
 #Define  functions
 def turn_left():
@@ -96,43 +105,50 @@ turtle.onkey(decrease_speed, "Down")
 
 
 while True:
+    gametime = 0
+    if gametime == 6 or time.time() > timeout:
+        break
+    gametime = gametime - 1
+
     player.forward(speed)
     comp.forward(12)
-        # Boundary Comp Checking x coordinate
-    if comp.xcor() > 290 or comp.xcor() < -290:
-        comp.right(180)
-        os.system('afplay bounce.mp3&')
 
-    # Boundary Comp Checking y coordinate
-    if comp.ycor() > 290 or comp.ycor() < -290:
-        comp.right(180)
-        os.system('afplay bounce.mp3&')
-
-    # Boundary Player Checking x coordinate
-    if player.xcor() > 290 or player.xcor() < -290:
+    #Boundary Player Checking x coordinate
+    if player.xcor() > 290 or player.xcor() <-290:
         player.right(180)
-        os.system('afplay bounce.mp3&')
+        os.system("afplay bounce.mp3&")
 
-    # Boundary Player Checking y coordinate
-    if player.ycor() > 290 or player.ycor()  <-290:
+    #Boundary Player Checking y coordinate
+    if player.ycor() > 290 or player.ycor() <-290:
         player.right(180)
-        os.system('afplay bounce.mp3&')
+        os.system("afplay bounce.mp3&")
 
-    # Move Food around
+    #Boundary Comp Checking x coordinate
+    if comp.xcor() > 290 or comp.xcor() <-290:
+        comp.right(random.randint(10,170))
+        os.system("afplay bounce.mp3&")
+
+    #Boundary Comp Checking y coordinate
+    if comp.ycor() > 290 or comp.ycor() <-290:
+        comp.right(random.randint(10,170))
+        os.system("afplay bounce.mp3&")
+
+
+    #Move Food around
     for food in foods:
         food.forward(3)
 
-        # Boundary Food Checking x coordinate
-        if food.xcor() > 290 or food.xcor() < -290:
+        #Boundary Food Checking x coordinate
+        if food.xcor() > 290 or food.xcor() <-290:
            food.right(180)
-           os.system('afplay bounce.mp3&')
+           os.system("afplay bounce.mp3&")
 
-        # Boundary Food Checking y coordinate
-        if food.ycor() > 290 or food.ycor() < -290:
+        #Boundary Food Checking y coordinate
+        if food.ycor() > 290 or food.ycor() <-290:
            food.right(180)
-           os.system('afplay bounce.mp3&')
+           os.system("afplay bounce.mp3&")
 
-       #Collision checking
+        #Player Collision checking
         if isCollision(player, food):
            food.setposition(random.randint(-290, 290), random.randint(-290, 290))
            food.right(random.randint(0,360))
@@ -145,4 +161,17 @@ while True:
            mypen.setposition(-290, 310)
            scorestring ="Score: %s" %score
            mypen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
-        
+
+       # Comp Collision checking
+        if isCollision(comp, food):
+           food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+           food.right(random.randint(0,360))
+           os.system("afplay chomp.mp3&")
+           compscore+=1
+           #Draw the Comp score on the screen
+           mypen2.undo()
+           mypen2.penup()
+           mypen2.hideturtle()
+           mypen2.setposition(200, 310)
+           scorestring ="Score: %s" %compscore
+           mypen2.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
