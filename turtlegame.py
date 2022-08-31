@@ -17,50 +17,52 @@ wn.bgcolor("black")
 wn.bgpic("kbgame-bg.gif")
 wn.tracer(3)
 
-# Draw border
+#Draw border
 mypen = turtle.Turtle()
+mypen.color("white")
 mypen.penup()
 mypen.setposition(-300,-300)
 mypen.pendown()
-mypen.pensize(1)
-mypen.color('coral')
+mypen.pensize(3)
 for side in range(4):
     mypen.forward(600)
     mypen.left(90)
 mypen.hideturtle()
 
+
 #Create player turtle
 player = turtle.Turtle()
-player.color("coral")
+player.color("darkorange")
 player.shape("turtle")
 player.penup()
-player.pensize(5)
-player.speed(0) 
+player.speed(0)
 
-# Create opponent turtle
+#Create compition turtle
 comp = turtle.Turtle()
-comp.color('red')
-comp.shape('turtle')
+comp.color("red")
+comp.shape("turtle")
 comp.penup()
 comp.setposition(random.randint(-290, 290), random.randint(-290, 290))
 
-# Create competition score
+#Create Comp score
 mypen2 = turtle.Turtle()
-mypen2.color('red')
+mypen2.color("red")
 mypen2.hideturtle()
 
-# Create variable score
-score = 0
-comp_score = 0
 
-# Create food
-maxFoods = 6
+#Create variabl score
+score = 0
+compscore = 0
+
+#create food
+maxFoods = 10
 foods = []
+
 for count in range(maxFoods):
     new_food = turtle.Turtle()
-    new_food.shapesize(.5)
     new_food.color("lightgreen")
     new_food.shape("circle")
+    new_food.shapesize(.5)
     new_food.penup()
     new_food.speed(0)
     new_food.setposition(random.randint(-290, 290), random.randint(-290, 290))
@@ -69,10 +71,12 @@ for count in range(maxFoods):
 #Set speed variable
 speed = 1
 
-# Set game time limit for 1 minute (60 seconds)
+
+#Set game time limit for 1 minute (60 seconds)
 timeout = time.time() + 10*6
 
 #Define  functions
+
 def turn_left():
     player.left(30)
 
@@ -83,10 +87,6 @@ def increase_speed():
     global speed
     speed += 1
 
-def decrease_speed():
-    global speed
-    speed -= 1
-
 def isCollision(t1, t2):
        d = math.sqrt(math.pow(t1.xcor()-t2.xcor(),2) + math.pow(t1.ycor()-t2.ycor(),2))
        if d < 20:
@@ -94,14 +94,13 @@ def isCollision(t1, t2):
        else:
            return False
 
-
-
 #Set keyboard bindings
 turtle.listen()
 turtle.onkey(turn_left, "Left")
 turtle.onkey(turn_right, "Right")
-turtle.onkey(increase_speed, "Up") 
-turtle.onkey(decrease_speed, "Down") 
+turtle.onkey(increase_speed, "Up")
+
+
 
 
 while True:
@@ -124,13 +123,13 @@ while True:
         os.system("afplay bounce.mp3&")
 
     #Boundary Comp Checking x coordinate
-    if comp.xcor() > 290 or comp.xcor() <-290:
-        comp.right(random.randint(10,170))
+    if comp.xcor() > 280 or comp.xcor() <-280:
+        comp.right(random.randint(30,155))
         os.system("afplay bounce.mp3&")
 
     #Boundary Comp Checking y coordinate
-    if comp.ycor() > 290 or comp.ycor() <-290:
-        comp.right(random.randint(10,170))
+    if comp.ycor() > 280 or comp.ycor() <-280:
+        comp.right(random.randint(30,155))
         os.system("afplay bounce.mp3&")
 
 
@@ -175,3 +174,26 @@ while True:
            mypen2.setposition(200, 310)
            scorestring ="Score: %s" %compscore
            mypen2.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
+
+
+if (int(score) > int(compscore)):
+    mypen.setposition(0, 0)
+    mypen.color("yellow")
+    mypen.write("Game Over: You WIN", False, align="center", font=("Arial", 28, "normal"))
+else:
+    mypen.setposition(0, 0)
+    mypen.color("yellow")
+    mypen.write("Game Over: You LOOSE", False, align="center", font=("Arial", 28, "normal"))
+
+
+
+
+
+
+
+
+
+
+
+
+# delay = input("Press Enter to finish.")
