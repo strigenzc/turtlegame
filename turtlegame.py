@@ -55,12 +55,22 @@ def decrease_speed():
     global speed
     speed -= 1
 
+def isCollision(t1, t2):
+       d = math.sqrt(math.pow(t1.xcor()-t2.xcor(),2) + math.pow(t1.ycor()-t2.ycor(),2))
+       if d < 20:
+           return True
+       else:
+           return False
+
+
+
 #Set keyboard bindings
 turtle.listen()
 turtle.onkey(turn_left, "Left")
 turtle.onkey(turn_right, "Right")
 turtle.onkey(increase_speed, "Up") 
 turtle.onkey(decrease_speed, "Down") 
+
 
 while True:
     player.forward(speed)
@@ -73,9 +83,26 @@ while True:
     if player.ycor() > 290 or player.ycor() < -290:
         player.right(180)
 
+
+    # Boundary Food Checking x coordinate
+    if food.xcor() > 290 or food.xcor() < -290:
+        food.right(180)
+
+    # Boundary Food Checking y coordinate
+    if food.ycor() > 290 or food.ycor() < -290:
+        food.right(180) 
+
+
+   # Move food around
+    food.forward(1)
+
     # Collision checking
-    d = math.sqrt(math.pow(player.xcor() - food.xcor(), 2) + math.pow(player.ycor() - food.ycor(),2))
-   
-    if d < 20:
+    if isCollision(player, food):
         food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+
+     # Move food around
+        food.forward(3)
+
+
+
 
