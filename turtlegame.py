@@ -26,6 +26,14 @@ player.penup()
 player.pensize(5)
 player.speed(0) 
 
+# Create food
+food = turtle.Turtle()
+food.color("lightgreen")
+food.shape("circle")
+food.penup()
+food.speed(0)
+food.setposition(-100, 100)
+
 #Set speed variable
 speed = 1
 
