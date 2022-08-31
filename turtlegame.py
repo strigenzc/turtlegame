@@ -7,6 +7,7 @@ import random
 turtle.setup(650,650)
 wn = turtle.Screen()
 wn.bgcolor("mediumslateblue")
+wn.tracer(3)
 
 # Draw border
 mypen = turtle.Turtle()
@@ -29,13 +30,16 @@ player.pensize(5)
 player.speed(0) 
 
 # Create food
-food = turtle.Turtle()
-food.color("lightgreen")
-food.shape("circle")
-food.penup()
-food.speed(0)
-food.setposition(random.randint(-290, 290), random.randint(-290, 290))
-
+maxFoods = 6
+foods = []
+for count in range(maxFoods):
+    new_food = turtle.Turtle()
+    new_food.color("lightgreen")
+    new_food.shape("circle")
+    new_food.penup()
+    new_food.speed(0)
+    new_food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+    foods.append(new_food)
 
 #Set speed variable
 speed = 1
@@ -81,28 +85,24 @@ while True:
 
     # Boundary Player Checking y coordinate
     if player.ycor() > 290 or player.ycor() < -290:
-        player.right(180)
+        player.right(18
 
-
-    # Boundary Food Checking x coordinate
-    if food.xcor() > 290 or food.xcor() < -290:
-        food.right(180)
-
-    # Boundary Food Checking y coordinate
-    if food.ycor() > 290 or food.ycor() < -290:
-        food.right(180) 
-
-
-   # Move food around
-    food.forward(1)
-
-    # Collision checking
-    if isCollision(player, food):
-        food.setposition(random.randint(-290, 290), random.randint(-290, 290))
-
-     # Move food around
+    #Move food around
+    for food in foods:
         food.forward(3)
 
+       #Boundary Food Checking x coordinate
+        if food.xcor() > 290 or food.xcor() <-290:
+           food.right(180)
+
+        #Boundary Food Checking y coordinate
+        if food.ycor() > 290 or food.ycor() <-290:
+           food.right(180)
+
+        # Collision checking
+        if isCollision(player, food):
+            food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+            food.right(random.randint(0, 360))
 
 
 
