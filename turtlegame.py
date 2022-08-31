@@ -11,8 +11,8 @@ mypen = turtle.Turtle()
 mypen.penup()
 mypen.setposition(-300,-300)
 mypen.pendown()
-mypen.pensize(3)
-mypen.color('white')
+mypen.pensize(1)
+mypen.color('coral')
 for side in range(4):
     mypen.forward(600)
     mypen.left(90)
@@ -23,6 +23,7 @@ player = turtle.Turtle()
 player.color("coral")
 player.shape("turtle")
 player.penup()
+player.pensize(5)
 player.speed(0) 
 
 #Set speed variable
