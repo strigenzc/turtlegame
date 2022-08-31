@@ -1,5 +1,6 @@
 #building a turtle game via She Codes Aus Tut - Space Turtle Chomp
 import turtle
+import math
 
 #Set up screen
 turtle.setup(650,650)
@@ -59,8 +60,6 @@ turtle.onkey(turn_right, "Right")
 turtle.onkey(increase_speed, "Up") 
 turtle.onkey(decrease_speed, "Down") 
 
-
-
 while True:
     player.forward(speed)
 
@@ -71,3 +70,8 @@ while True:
     # Boundary Player Checking y coordinate
     if player.ycor() > 290 or player.ycor() < -290:
         player.right(180)
+
+    # Collision checking
+    d = math.sqrt(math.pow(player.xcor() - food.xcor(), 2) + math.pow(player.ycor() - food.ycor(),2))
+    if d < 20:
+        food.hideturtle()
