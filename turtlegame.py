@@ -1,6 +1,7 @@
 #building a turtle game via She Codes Aus Tut - Space Turtle Chomp
 import turtle
 import math
+import random
 
 #Set up screen
 turtle.setup(650,650)
@@ -33,7 +34,8 @@ food.color("lightgreen")
 food.shape("circle")
 food.penup()
 food.speed(0)
-food.setposition(-100, 100)
+food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+
 
 #Set speed variable
 speed = 1
@@ -73,5 +75,7 @@ while True:
 
     # Collision checking
     d = math.sqrt(math.pow(player.xcor() - food.xcor(), 2) + math.pow(player.ycor() - food.ycor(),2))
+   
     if d < 20:
-        food.hideturtle()
+        food.setposition(random.randint(-290, 290), random.randint(-290, 290))
+
