@@ -12,9 +12,8 @@ os.system('afplay "{}"'.format(bounce_path))
 #Set up screen
 turtle.setup(650,650)
 wn = turtle.Screen()
-wn.bgcolor("mediumslateblue")
-
-
+wn.bgcolor("black")
+wn.bgpic("kbgame-bg.gif")
 wn.tracer(3)
 
 # Draw border
@@ -36,6 +35,9 @@ player.shape("turtle")
 player.penup()
 player.pensize(5)
 player.speed(0) 
+
+# Create variable score
+score = 0
 
 # Create food
 maxFoods = 6
@@ -112,8 +114,17 @@ while True:
            food.right(180)
            os.system('afplay bounce.mp3&')
 
-        # Collision checking
+       #Collision checking
         if isCollision(player, food):
            food.setposition(random.randint(-290, 290), random.randint(-290, 290))
            food.right(random.randint(0,360))
-           os.system('afplay chomp.mp3&')
+           os.system("afplay chomp.mp3&")
+           score+=1
+           #Draw the score on the screen
+           mypen.undo()
+           mypen.penup()
+           mypen.hideturtle()
+           mypen.setposition(-290, 310)
+           scorestring ="Score: %s" %score
+           mypen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
+        
